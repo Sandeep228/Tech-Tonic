@@ -99,7 +99,6 @@ const CheckboxForm = () => {
     console.log(arr);
     if (Object.values(arr[0]).every((val) => val === 0)) {
       return ["N/A", "N/A"];
-      console.log("NA");
     } else {
       // eslint-disable-next-line
       const [firstKey, firstValue] = Object.entries(arr[0]).sort(

@@ -24,33 +24,32 @@ function CollegeInput() {
     setAnswers({ ...answers, [id]: checked ? value : undefined });
   };
 
-  const formatTargetValue = (data) =>{
-    let value=data;
-    if(value=="short(1-5)"){
-      return "short"
+  const formatTargetValue = (data) => {
+    let value = data;
+    if (value === "short(1-5)") {
+      return "short";
+    } else if (value === "Medium (5-8)") {
+      return "medium";
+    } else if (value === "long(more than 8 months)") {
+      return "long";
+    } else if (value === "Very small (1-5)") {
+      return "very small";
+    } else if (value === "Small (5-10)") {
+      return "small";
+    } else if (value === "Medium (10-50)") {
+      return "medium";
+    } else if (value === "Large (More than 50)") {
+      return "large";
     }
-    else if(value=="Medium (5-8)"){
-      return "medium"
-    }else if(value=="long(more than 8 months)"){
-      return "long"
-    }else if(value=="Very small (1-5)"){
-      return "very small"
-    }else if(value=="Small (5-10)"){
-       return "small"
-    }else if(value=="Medium (10-50)"){
-      return "medium"
-    }else if(value=="Large (More than 50)"){
-      return "large"
-    }
-  }
+  };
 
   function handleOption1Change(event) {
-    const value= formatTargetValue(event.target.value);
+    const value = formatTargetValue(event.target.value);
     setOption1(value);
   }
 
   function handleOption2Change(event) {
-    const value= formatTargetValue(event.target.value);
+    const value = formatTargetValue(event.target.value);
     setOption2(value);
   }
 

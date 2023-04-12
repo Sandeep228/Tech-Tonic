@@ -1,15 +1,16 @@
 import React, { useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const CheckboxForm = () => {
   const location = useLocation();
-  // console.log("location",location.state);
+  const navigate = useNavigate();
+  let res1;
 
   const [technologies, setTechnologies] = useState({
-    nextjs: { proficiency: "unfamiliar", projects: 0 },
-    reactjs: { proficiency: "unfamiliar", projects: 0 },
-    angular: { proficiency: "unfamiliar", projects: 0 },
-    vue: { proficiency: "unfamiliar", projects: 0 },
+    MongoDB: { proficiency: "unfamiliar", projects: 0 },
+    Sql: { proficiency: "unfamiliar", projects: 0 },
+    Postgres: { proficiency: "unfamiliar", projects: 0 },
+    GraphQL: { proficiency: "unfamiliar", projects: 0 },
   });
 
   const handleProficiencyChange = (event) => {
@@ -29,17 +30,17 @@ const CheckboxForm = () => {
   };
 
   const calculateScore = () => {
-    let reactScore = 0;
-    let nextScore = 0;
-    let vue = 0;
-    let angular = 0;
+    let MongoDB = 0;
+    let SQL = 0;
+    let Postgres = 0;
+    let GraphQL = 0;
 
     // Iterate over each technology
     Object.keys(technologies).forEach((tech) => {
       const proficiency = technologies[tech].proficiency;
       const projects = technologies[tech].projects;
 
-      // Calculate score based on proficiency level
+      // Calculate score based on profici
       let score = 0;
       switch (proficiency) {
         case "basic":
@@ -58,103 +59,47 @@ const CheckboxForm = () => {
       // Multiply score by number of projects
       const total = score + projects;
       // Add total score to ReactJS or NextJS score
-      if (tech === "reactjs") {
-        reactScore = reactScore + total;
-      } else if (tech === "nextjs") {
-        nextScore += total;
-      } else if (tech === "angular") {
-        angular += total;
-      } else if (tech === "vue") {
-        vue += total;
+      if (tech === "MongoDB") {
+        MongoDB += total;
+      } else if (tech === "SQL") {
+        SQL += total;
+      } else if (tech === "Postgres") {
+        Postgres += total;
+      } else if (tech === "GraphQL") {
+        GraphQL += total;
       }
     });
-    let arr = [
-      { react: reactScore, next: nextScore, vue: vue, angular: angular },
+    const arr = [
+      {
+        MongoDB: MongoDB,
+        SQL: SQL,
+        Postgres: Postgres,
+        GraphQL: GraphQL,
+      },
     ];
-    if (hasMoreSameParameters(arr)) {
-      const TeamSize = location.state.option2;
-      arr = manipulateArray(arr, TeamSize);
-    }
-    const res = largest(arr);
-    console.log(res);
-    return "res";
+    res1 = largest(arr);
+
+    const back = {
+      option1: `${location.state?.option1}`,
+      option2: `${location.state?.option2}`,
+      inputValue: `${location.state?.inputValue}`,
+      projectype: `${location.state?.projectype}`,
+      res: `${location.state?.res}`,
+      res2: res1,
+    };
+
+    navigate("/result", {
+      replace: true,
+      state: { back },
+    });
+    console.log(res1);
+    return res1;
   };
-
-  const manipulateArray = (arr, teamsize) => {
-    //reorder them as per project size
-    let newArr = [];
-    const reactScore = arr[0].react;
-    const nextScore = arr[0].next;
-    const vueScore = arr[0].vue;
-    const angularScore = arr[0].angular;
-
-    if (teamsize === "very small") {
-      newArr = [
-        {
-          react: reactScore + 2,
-          vue: vueScore + 3,
-          next: nextScore + 1,
-          angular: angularScore,
-        },
-      ];
-    } else if (teamsize === "small") {
-      newArr = [
-        {
-          react: reactScore + 2,
-          vue: vueScore + 3,
-          next: nextScore + 1,
-          angular: angularScore,
-        },
-      ];
-    } else if (teamsize === "medium") {
-      newArr = [
-        {
-          react: reactScore + 3,
-          next: nextScore + 2,
-          vue: vueScore + 1,
-          angular: angularScore,
-        },
-      ];
-    } else if (teamsize === "large") {
-      newArr = [
-        {
-          angular: angularScore + 3,
-          react: reactScore + 2,
-          next: nextScore + 1,
-          vue: vueScore,
-        },
-      ];
-    }
-    return newArr;
-  };
-
-  const hasMoreSameParameters = (arr) => {
-    const kvPairs = arr[0];
-
-    // Step 1: Sort the key-value pairs in descending order of the values
-    const sortedPairs = Object.entries(kvPairs).sort((a, b) => b[1] - a[1]);
-
-    // Step 2: Get the values of the top 2 keys
-    const topValues = [sortedPairs[0][1], sortedPairs[1][1]];
-
-    // Step 3 and 4: Check if any remaining key has the same value as the top 2, but is not one of them
-    for (let i = 2; i < sortedPairs.length; i++) {
-      const [key, value] = sortedPairs[i];
-      if (value === topValues[0] || value === topValues[1]) {
-        if (key !== sortedPairs[0][0] && key !== sortedPairs[1][0]) {
-          console.log(
-            `${key} has the same value as other keys and is not in top 2`
-          );
-          return true;
-        }
-      }
-    }
-  };
-
+  //logic error
   const largest = (arr) => {
     console.log(arr);
     if (Object.values(arr[0]).every((val) => val === 0)) {
-      console.log("NA");
+      return ["N/A", "N/A"];
     } else {
       // eslint-disable-next-line
       const [firstKey, firstValue] = Object.entries(arr[0]).sort(
@@ -173,10 +118,10 @@ const CheckboxForm = () => {
     <div>
       <div>
         <label>
-          ReactJS:
+          MongoDB
           <select
-            name="reactjs"
-            value={technologies["reactjs"].proficiency}
+            name="MongoDB"
+            value={technologies["MongoDB"].proficiency}
             onChange={handleProficiencyChange}
           >
             <option value="basic">Basic</option>
@@ -187,18 +132,18 @@ const CheckboxForm = () => {
           <input
             type="number"
             min="0"
-            name="reactjs"
-            value={technologies["reactjs"].projects}
+            name="MongoDB"
+            value={technologies["MongoDB"].projects}
             onChange={handleProjectsChange}
           />
         </label>
       </div>
       <div>
         <label>
-          NextJS:
+          SQL
           <select
-            name="nextjs"
-            value={technologies["nextjs"].proficiency}
+            name="Sql"
+            value={technologies["Sql"].proficiency}
             onChange={handleProficiencyChange}
           >
             <option value="basic">Basic</option>
@@ -209,18 +154,18 @@ const CheckboxForm = () => {
           <input
             type="number"
             min="0"
-            name="nextjs"
-            value={technologies["nextjs"].projects}
+            name="Sql"
+            value={technologies["Sql"].projects}
             onChange={handleProjectsChange}
           />
         </label>
       </div>
       <div>
         <label>
-          Angular:
+          Postgres
           <select
-            name="angular"
-            value={technologies["angular"].proficiency}
+            name="Postgres"
+            value={technologies["Postgres"].proficiency}
             onChange={handleProficiencyChange}
           >
             <option value="basic">Basic</option>
@@ -231,18 +176,18 @@ const CheckboxForm = () => {
           <input
             type="number"
             min="0"
-            name="angular"
-            value={technologies["angular"].projects}
+            name="Postgres"
+            value={technologies["Postgres"].projects}
             onChange={handleProjectsChange}
           />
         </label>
       </div>
       <div>
         <label>
-          Vue:
+          GraphQL
           <select
-            name="vue"
-            value={technologies["vue"].proficiency}
+            name="GraphQL"
+            value={technologies["GraphQL"].proficiency}
             onChange={handleProficiencyChange}
           >
             <option value="basic">Basic</option>
@@ -253,12 +198,13 @@ const CheckboxForm = () => {
           <input
             type="number"
             min="0"
-            name="vue"
-            value={technologies["vue"].projects}
+            name="GraphQL"
+            value={technologies["GraphQL"].projects}
             onChange={handleProjectsChange}
           />
         </label>
       </div>
+
       <button onClick={() => calculateScore()}> add </button>
     </div>
   );
