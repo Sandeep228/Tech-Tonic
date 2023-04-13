@@ -1,8 +1,11 @@
 import React, { useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const CheckboxForm = () => {
+  let needParsing = true;
   const location = useLocation();
+  const navigate = useNavigate();
+
   // console.log("location",location.state);
 
   const [technologies, setTechnologies] = useState({
@@ -71,13 +74,76 @@ const CheckboxForm = () => {
     let arr = [
       { react: reactScore, next: nextScore, vue: vue, angular: angular },
     ];
-    if (hasMoreSameParameters(arr)) {
-      const TeamSize = location.state.option2;
-      arr = manipulateArray(arr, TeamSize);
+
+    let res = [];
+
+    if (hasAllzeros(arr)) {
+      console.log("yaha jana bss");
+      needParsing = false;
+      res = ["N/A", "N/A"];
     }
-    const res = largest(arr);
-    console.log(res);
-    return "res";
+
+    if (needParsing == true) {
+      let obj = sortArray(arr);
+      if (hasThreeZeros(obj)) {
+        console.log("yaha mt jana 1");
+        const firstPair = Object.keys(obj)[0];
+        res = [firstPair, "N/A"];
+        needParsing = false;
+      }
+    }
+
+    if (needParsing == true) {
+      if (hasMoreSameParameters(arr)) {
+        const TeamSize = location.state.option2;
+        arr = manipulateArray(arr, TeamSize);
+        res = largest(arr);
+        needParsing=false;
+      }
+    }
+   
+    if(needParsing==true){
+      res=largest(arr);
+    }
+    
+    navigate("/backend", {
+      replace: true,
+      state: { res },
+    });
+    return res;
+  };
+
+  const hasThreeZeros = (obj) => {
+    if (obj[Object.keys(obj)[1]] === 0) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
+  const hasAllzeros = (arr) => {
+    const reactScore = arr[0].react;
+    const nextScore = arr[0].next;
+    const vueScore = arr[0].vue;
+    const angularScore = arr[0].angular;
+    if (
+      reactScore == 0 &&
+      nextScore == 0 &&
+      vueScore == 0 &&
+      angularScore == 0
+    ) {
+      return true;
+    }else{
+      return false;
+    }
+  };
+
+  const sortArray = (arr) => {
+    const obj = arr[0];
+    const pairs = Object.entries(obj);
+    pairs.sort((a, b) => b[1] - a[1]);
+    const sortedObj = Object.fromEntries(pairs);
+    return sortedObj;
   };
 
   const manipulateArray = (arr, teamsize) => {
@@ -91,9 +157,9 @@ const CheckboxForm = () => {
     if (teamsize === "very small") {
       newArr = [
         {
-          react: reactScore + 2,
-          vue: vueScore + 3,
-          next: nextScore + 1,
+          vue: vueScore + 2,
+          react: reactScore + 1,
+          next: nextScore,
           angular: angularScore,
         },
       ];
@@ -152,7 +218,6 @@ const CheckboxForm = () => {
   };
 
   const largest = (arr) => {
-    console.log(arr);
     if (Object.values(arr[0]).every((val) => val === 0)) {
       console.log("NA");
     } else {
