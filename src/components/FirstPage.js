@@ -74,23 +74,23 @@ function CollegeInput() {
   function handlecheck() {
     //check for desgin
     if (result >= 6) {
-      return "advanced";
+      return "Advanced";
     } else if (result < 6 && result > 3) {
-      return "intermediate";
+      return "Intermediate";
     } else {
-      return "basic";
+      return "Basic";
     }
   }
 
   function handleSubmit(event) {
     event.preventDefault();
     const res = handlecheck();
-    if (projectype === "app") {
+    if (projectype === "Mob") {
       navigate("/app", {
         replace: true,
         state: { option1, option2, inputValue, projectype, res },
       });
-    } else if (projectype === "web") {
+    } else if (projectype === "Web") {
       navigate("/web", {
         replace: true,
         state: { option1, option2, inputValue, projectype, res },
@@ -105,9 +105,9 @@ function CollegeInput() {
 
   let projectype = "";
   if (isApp) {
-    projectype = "app";
+    projectype = "Mob";
   } else if (isWeb) {
-    projectype = "web";
+    projectype = "Web";
   }
 
   return (

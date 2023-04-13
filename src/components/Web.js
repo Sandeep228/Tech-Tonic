@@ -6,8 +6,6 @@ const CheckboxForm = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  // console.log("location",location.state);
-
   const [technologies, setTechnologies] = useState({
     nextjs: { proficiency: "unfamiliar", projects: 0 },
     reactjs: { proficiency: "unfamiliar", projects: 0 },
@@ -72,13 +70,12 @@ const CheckboxForm = () => {
       }
     });
     let arr = [
-      { react: reactScore, next: nextScore, vue: vue, angular: angular },
+      { ReactJS: reactScore, NextJS: nextScore, Vue: vue, Angular: angular },
     ];
 
     let res = [];
 
     if (hasAllzeros(arr)) {
-      console.log("yaha jana bss");
       needParsing = false;
       res = ["N/A", "N/A"];
     }
@@ -86,7 +83,6 @@ const CheckboxForm = () => {
     if (needParsing == true) {
       let obj = sortArray(arr);
       if (hasThreeZeros(obj)) {
-        console.log("yaha mt jana 1");
         const firstPair = Object.keys(obj)[0];
         res = [firstPair, "N/A"];
         needParsing = false;
@@ -105,10 +101,19 @@ const CheckboxForm = () => {
     if(needParsing==true){
       res=largest(arr);
     }
+
+    const back = {
+      duration: `${location.state?.option1}`,
+      TeamSize: `${location.state?.option2}`,
+      projectName: `${location.state?.inputValue}`,
+      projectType: `${location.state?.projectype}`,
+      designingSkills: `${location.state?.res}`,
+      frontendProficiency: res,
+    };
     
     navigate("/backend", {
       replace: true,
-      state: { res },
+      state: { back },
     });
     return res;
   };
@@ -122,10 +127,10 @@ const CheckboxForm = () => {
   };
 
   const hasAllzeros = (arr) => {
-    const reactScore = arr[0].react;
-    const nextScore = arr[0].next;
-    const vueScore = arr[0].vue;
-    const angularScore = arr[0].angular;
+    const reactScore = arr[0].ReactJS;
+    const nextScore = arr[0].NextJS;
+    const vueScore = arr[0].Vue;
+    const angularScore = arr[0].Angular;
     if (
       reactScore == 0 &&
       nextScore == 0 &&

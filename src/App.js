@@ -5,6 +5,7 @@ import App1 from "./components/App1";
 import Web from "./components/Web";
 import Backend from "./components/Backend";
 import Database from "./components/Database";
+import Result from "./components/Result"
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="web" element={<Web />} />
         <Route path="backend" element={<Backend />} />
         <Route path="data" element={<Database />} />
+        <Route path="result" element={<Result />} />
         <Route />
       </Routes>
     </>

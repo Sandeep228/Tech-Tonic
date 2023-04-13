@@ -4,7 +4,8 @@ import { useLocation, useNavigate } from "react-router-dom";
 const CheckboxForm = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  let res1;
+  let res=[];
+  let needParsing=true;
 
   const [technologies, setTechnologies] = useState({
     reactnative: { proficiency: "unfamiliar", projects: 0 },
@@ -32,8 +33,8 @@ const CheckboxForm = () => {
   const calculateScore = () => {
     let reactnativeScore = 0;
     let flutterScore = 0;
-    let swift = 0;
-    let xml = 0;
+    let swiftScore = 0;
+    let xmlScore = 0;
 
     // Iterate over each technology
     Object.keys(technologies).forEach((tech) => {
@@ -63,37 +64,168 @@ const CheckboxForm = () => {
       } else if (tech === "flutter") {
         flutterScore += total;
       } else if (tech === "swift") {
-        swift += total;
+        swiftScore += total;
       } else if (tech === "xml") {
-        xml += total;
+        xmlScore += total;
       }
     });
     const arr = [
       {
-        reactnative: reactnativeScore,
-        flutter: flutterScore,
-        swift: swift,
-        xml: xml,
+        ReactNative: reactnativeScore,
+        Flutter: flutterScore,
+        Swift: swiftScore,
+        XML: xmlScore,
       },
     ];
-    res1 = largest(arr);
+   
+    if (hasAllzeros(arr)) {
+      needParsing = false;
+      res = ["N/A", "N/A"];
+    }
+
+    if (needParsing == true) {
+      let obj = sortArray(arr);
+      if (hasThreeZeros(obj)) {
+        const firstPair = Object.keys(obj)[0];
+        res = [firstPair, "N/A"];
+        needParsing = false;
+      }
+    }
+
+    if (needParsing == true) {
+      if (hasMoreSameParameters(arr)) {
+        const TeamSize = location.state.option2;
+        arr = manipulateArray(arr, TeamSize);
+        res = largest(arr);
+        needParsing=false;
+      }
+    }
+   
+    if(needParsing==true){
+      res=largest(arr);
+    }
 
     const back = {
-      option1: `${location.state?.option1}`,
-      option2: `${location.state?.option2}`,
-      inputValue: `${location.state?.inputValue}`,
-      projectype: `${location.state?.projectype}`,
-      res: `${location.state?.res}`,
-      res2: res1,
+      duration: `${location.state?.option1}`,
+      TeamSize: `${location.state?.option2}`,
+      projectName: `${location.state?.inputValue}`,
+      projectType: `${location.state?.projectype}`,
+      designingSkills: `${location.state?.res}`,
+      frontendProficiency: res,
     };
-
+    
     navigate("/backend", {
       replace: true,
       state: { back },
     });
-    console.log(res1);
-    return res1;
+    return res;
   };
+
+  const hasThreeZeros = (obj) => {
+    if (obj[Object.keys(obj)[1]] === 0) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
+  const hasAllzeros = (arr) => {
+    let reactnativeScore = arr[0].ReactNative;
+    let flutterScore = arr[0].Flutter;
+    let swiftScore = arr[0].Swift;
+    let xmlScore = arr[0].XML;
+
+    if (
+      reactnativeScore == 0 &&
+      flutterScore == 0 &&
+      swiftScore == 0 &&
+      xmlScore == 0
+    ) {
+      return true;
+    }else{
+      return false;
+    }
+  };
+
+  const sortArray = (arr) => {
+    const obj = arr[0];
+    const pairs = Object.entries(obj);
+    pairs.sort((a, b) => b[1] - a[1]);
+    const sortedObj = Object.fromEntries(pairs);
+    return sortedObj;
+  };
+
+  const manipulateArray = (arr, teamsize) => {
+    //reorder them as per project size
+    let newArr = [];
+    let reactnativeScore = arr[0].ReactNative;
+    let flutterScore = arr[0].Flutter;
+    let swiftScore = arr[0].Swift;
+    let xmlScore = arr[0].XML;
+
+    if (teamsize === "very small") {
+      newArr = [
+        {
+          ReactNative: reactnativeScore + 2,
+          Flutter: flutterScore + 2,
+          Swift: swiftScore+1,
+          XML: xmlScore+1,
+        },
+      ];
+    } else if (teamsize === "small") {
+      newArr = [
+        {
+          ReactNative: reactnativeScore + 2,
+          Flutter: flutterScore + 2,
+          Swift: swiftScore+1,
+          XML: xmlScore+1,
+        },
+      ];
+    } else if (teamsize === "medium") {
+      newArr = [
+        {
+          ReactNative: reactnativeScore + 2,
+          Flutter: flutterScore + 2,
+          Swift: swiftScore,
+          XML: xmlScore,
+        },
+      ];
+    } else if (teamsize === "large") {
+      newArr = [
+        {
+          ReactNative: reactnativeScore + 2,
+          Flutter: flutterScore + 2,
+          Swift: swiftScore,
+          XML: xmlScore,
+        },
+      ];
+    }
+    return newArr;
+  };
+
+  const hasMoreSameParameters = (arr) => {
+    const kvPairs = arr[0];
+
+    // Step 1: Sort the key-value pairs in descending order of the values
+    const sortedPairs = Object.entries(kvPairs).sort((a, b) => b[1] - a[1]);
+
+    // Step 2: Get the values of the top 2 keys
+    const topValues = [sortedPairs[0][1], sortedPairs[1][1]];
+
+    // Step 3 and 4: Check if any remaining key has the same value as the top 2, but is not one of them
+    for (let i = 2; i < sortedPairs.length; i++) {
+      const [key, value] = sortedPairs[i];
+      if (value === topValues[0] || value === topValues[1]) {
+        if (key !== sortedPairs[0][0] && key !== sortedPairs[1][0]) {
+          console.log(
+            `${key} has the same value as other keys and is not in top 2`
+          );
+          return true;
+        }
+      }
+    }
+  };
+
   //logic error
   const largest = (arr) => {
     console.log(arr);

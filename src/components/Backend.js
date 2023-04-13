@@ -6,16 +6,14 @@ function Backend() {
   const navigate = useNavigate();
   let res11;
 
-  console.log(location);
-
   const [technologies, setTechnologies] = useState({
     nodejs: { proficiency: "unfamiliar", projects: 0 },
     express: { proficiency: "unfamiliar", projects: 0 },
     nestjs: { proficiency: "unfamiliar", projects: 0 },
     django: { proficiency: "unfamiliar", projects: 0 },
-    flask: { roficiency: "unfamiliar", projects: 0 },
+    flask: { proficiency: "unfamiliar", projects: 0 },
     python: { proficiency: "unfamiliar", projects: 0 },
-    php: { ficiency: "unfamiliar", projects: 0 },
+    php: { proficiency: "unfamiliar", projects: 0 },
     laravel: { proficiency: "unfamiliar", projects: 0 },
     springboot: { proficiency: "unfamiliar", projects: 0 },
     java: { proficiency: "unfamiliar", projects: 0 },
@@ -101,34 +99,34 @@ function Backend() {
 
     const arr = [
       {
-        nodejs: nodejs,
-        express: express,
-        nestjs: nestjs,
-        django: django,
-        flask: flask,
-        python: python,
-        php: php,
-        laravel: laravel,
-        springboot: springboot,
-        java: java,
-        ruby: ruby,
+        Node: nodejs,
+        Express: express,
+        NestJS: nestjs,
+        Django: django,
+        Flask: flask,
+        Python: python,
+        PHP: php,
+        Laravel: laravel,
+        Springboot: springboot,
+        Java: java,
+        Ruby: ruby,
       },
     ];
     res11 = largest(arr);
 
-    const back2 = {
-      option1: `${location.state?.option1}`,
-      option2: `${location.state?.option2}`,
-      inputValue: `${location.state?.inputValue}`,
-      projectype: `${location.state?.projectype}`,
-      res: `${location.state?.res}`,
-      res2: `${location.state?.res1}`,
-      res3: res11,
+    const back = {
+      duration: `${location.state?.back?.duration}`,
+      TeamSize: `${location.state?.back?.TeamSize}`,
+      projectName: `${location.state?.back?.projectName}`,
+      projectType: `${location.state?.back?.projectType}`,
+      frontendProficiency: `${location.state?.back?.frontendProficiency}`,
+      designingSkills: `${location.state?.back?.designingSkills}`,
+      backendProficiency: `${res11.firstKey},${res11.secondKey}`,
     };
 
     navigate("/data", {
       replace: true,
-      state: { back2 },
+      state: { back },
     });
     console.log(res11);
     return res11;
