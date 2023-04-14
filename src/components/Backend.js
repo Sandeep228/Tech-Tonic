@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { Box, Button, Center, Heading, Checkbox, Select, Input, Text, Stack, HStack } from '@chakra-ui/react'
 
 function Backend() {
   const location = useLocation();
   const navigate = useNavigate();
   let res11;
+  console.log(location);
 
   const [technologies, setTechnologies] = useState({
     nodejs: { proficiency: "unfamiliar", projects: 0 },
@@ -121,7 +123,7 @@ function Backend() {
       projectType: `${location.state?.back?.projectType}`,
       frontendProficiency: `${location.state?.back?.frontendProficiency}`,
       designingSkills: `${location.state?.back?.designingSkills}`,
-      backendProficiency: `${res11.firstKey},${res11.secondKey}`,
+      backendProficiency: res11,
     };
 
     navigate("/data", {
@@ -151,55 +153,65 @@ function Backend() {
   };
 
   return (
-    <div>
+    <Box backgroundColor={"teal"}  w='100%' h='200vh'>
+    <Heading color={"white"} textAlign='center' py={5}>Frontend Proficiency</Heading>
+    <Center>
+    <div style={{backgroundColor:"white" , borderRadius:"12px", padding:"20px", width:"700px"}}>
       <div>
         <label>
-          NodeJS:
-          <select
+          <Text fontSize='xl'> NodeJS: </Text>
+          <HStack>
+          <Select
             name="nodejs"
             value={technologies["nodejs"].proficiency}
             onChange={handleProficiencyChange}
           >
-            <option value="basic">Unfamiliar</option>
-            <option value="1">Basic</option>
-            <option value="2">Intermediate</option>
-            <option value="3">Advanced</option>
-          </select>
-          <input
+            <option value="unfamiliar">Unfamiliar</option>
+            <option value="basic">Basic</option>
+            <option value="intermediate">Intermediate</option>
+            <option value="advanced">Advanced</option>
+          </Select>
+          <Input
             type="number"
             min="0"
             name="nodejs"
             value={technologies["nodejs"].projects}
             onChange={handleProjectsChange}
+        
           />
+         </HStack>
         </label>
       </div>
       <div>
         <label>
-          express:
-          <select
+        <Text fontSize='xl'> Express: </Text>
+          <HStack>
+          <Select
             name="express"
             value={technologies["express"].proficiency}
             onChange={handleProficiencyChange}
+    
           >
             <option value="basic">Basic</option>
             <option value="intermediate">Intermediate</option>
             <option value="advanced">Advanced</option>
             <option value="unfamiliar">Unfamiliar</option>
-          </select>
-          <input
+          </Select>
+          <Input
             type="number"
             min="0"
             name="express"
             value={technologies["express"].projects}
             onChange={handleProjectsChange}
           />
+          </HStack>
         </label>
       </div>
       <div>
         <label>
-          nestjs
-          <select
+        <Text fontSize='xl'> NestJS: </Text>
+          <HStack>
+          <Select
             name="nestjs"
             value={technologies["nestjs"].proficiency}
             onChange={handleProficiencyChange}
@@ -208,20 +220,22 @@ function Backend() {
             <option value="intermediate">Intermediate</option>
             <option value="advanced">Advanced</option>
             <option value="unfamiliar">Unfamiliar</option>
-          </select>
-          <input
+          </Select>
+          <Input
             type="number"
             min="0"
             name="nestjs"
             value={technologies["nestjs"].projects}
             onChange={handleProjectsChange}
           />
+          </HStack>
         </label>
       </div>
       <div>
         <label>
-          django
-          <select
+        <Text fontSize='xl'> Django: </Text>
+          <HStack>
+          <Select
             name="django"
             value={technologies["django"].proficiency}
             onChange={handleProficiencyChange}
@@ -230,20 +244,22 @@ function Backend() {
             <option value="intermediate">Intermediate</option>
             <option value="advanced">Advanced</option>
             <option value="unfamiliar">Unfamiliar</option>
-          </select>
-          <input
+          </Select>
+          <Input
             type="number"
             min="0"
             name="django"
             value={technologies["django"].projects}
             onChange={handleProjectsChange}
           />
+          </HStack>
         </label>
       </div>
       <div>
         <label>
-          flask
-          <select
+        <Text fontSize='xl'> Flask: </Text>
+          <HStack>
+          <Select
             name="flask"
             value={technologies["flask"].proficiency}
             onChange={handleProficiencyChange}
@@ -252,20 +268,22 @@ function Backend() {
             <option value="intermediate">Intermediate</option>
             <option value="advanced">Advanced</option>
             <option value="unfamiliar">Unfamiliar</option>
-          </select>
-          <input
+          </Select>
+          <Input
             type="number"
             min="0"
             name="flask"
             value={technologies["flask"].projects}
             onChange={handleProjectsChange}
           />
+          </HStack>
         </label>
       </div>
       <div>
         <label>
-          python:
-          <select
+        <Text fontSize='xl'> Python: </Text>
+          <HStack>
+          <Select
             name="python"
             value={technologies["python"].proficiency}
             onChange={handleProficiencyChange}
@@ -274,20 +292,22 @@ function Backend() {
             <option value="intermediate">Intermediate</option>
             <option value="advanced">Advanced</option>
             <option value="unfamiliar">Unfamiliar</option>
-          </select>
-          <input
+          </Select>
+          <Input
             type="number"
             min="0"
             name="python"
             value={technologies["python"].projects}
             onChange={handleProjectsChange}
           />
+          </HStack>
         </label>
       </div>
       <div>
         <label>
-          php
-          <select
+        <Text fontSize='xl'> PHP: </Text>
+          <HStack>
+          <Select
             name="php"
             value={technologies["php"].proficiency}
             onChange={handleProficiencyChange}
@@ -296,20 +316,22 @@ function Backend() {
             <option value="intermediate">Intermediate</option>
             <option value="advanced">Advanced</option>
             <option value="unfamiliar">Unfamiliar</option>
-          </select>
-          <input
+          </Select>
+          <Input
             type="number"
             min="0"
             name="php"
             value={technologies["php"].projects}
             onChange={handleProjectsChange}
           />
+          </HStack>
         </label>
       </div>
       <div>
         <label>
-          laravel
-          <select
+        <Text fontSize='xl'> Laravel: </Text>
+          <HStack>
+          <Select
             name="laravel"
             value={technologies["laravel"].proficiency}
             onChange={handleProficiencyChange}
@@ -318,20 +340,22 @@ function Backend() {
             <option value="intermediate">Intermediate</option>
             <option value="advanced">Advanced</option>
             <option value="unfamiliar">Unfamiliar</option>
-          </select>
-          <input
+          </Select>
+          <Input
             type="number"
             min="0"
             name="laravel"
             value={technologies["laravel"].projects}
             onChange={handleProjectsChange}
           />
+          </HStack>
         </label>
       </div>
       <div>
         <label>
-          springboot
-          <select
+        <Text fontSize='xl'> SpringBoot: </Text>
+          <HStack>
+          <Select
             name="springboot"
             value={technologies["springboot"].proficiency}
             onChange={handleProficiencyChange}
@@ -340,20 +364,22 @@ function Backend() {
             <option value="intermediate">Intermediate</option>
             <option value="advanced">Advanced</option>
             <option value="unfamiliar">Unfamiliar</option>
-          </select>
-          <input
+          </Select>
+          <Input
             type="number"
             min="0"
             name="springboot"
             value={technologies["springboot"].projects}
             onChange={handleProjectsChange}
           />
+          </HStack>
         </label>
       </div>
       <div>
         <label>
-          java
-          <select
+        <Text fontSize='xl'> Java: </Text>
+          <HStack>
+          <Select
             name="java"
             value={technologies["java"].proficiency}
             onChange={handleProficiencyChange}
@@ -362,20 +388,22 @@ function Backend() {
             <option value="intermediate">Intermediate</option>
             <option value="advanced">Advanced</option>
             <option value="unfamiliar">Unfamiliar</option>
-          </select>
-          <input
+          </Select>
+          <Input
             type="number"
             min="0"
             name="java"
             value={technologies["java"].projects}
             onChange={handleProjectsChange}
           />
+          </HStack>
         </label>
       </div>
       <div>
         <label>
-          ruby
-          <select
+        <Text fontSize='xl'> Ruby: </Text>
+          <HStack>
+          <Select
             name="ruby"
             value={technologies["ruby"].proficiency}
             onChange={handleProficiencyChange}
@@ -384,18 +412,21 @@ function Backend() {
             <option value="intermediate">Intermediate</option>
             <option value="advanced">Advanced</option>
             <option value="unfamiliar">Unfamiliar</option>
-          </select>
-          <input
+          </Select>
+          <Input
             type="number"
             min="0"
             name="ruby"
             value={technologies["ruby"].projects}
             onChange={handleProjectsChange}
           />
+          </HStack>
         </label>
       </div>
-      <button onClick={() => calculateScore()}> add </button>
+      <Button colorScheme='teal' onClick={() => calculateScore()}>Next</Button>
     </div>
+    </Center>
+    </Box>
   );
 }
 

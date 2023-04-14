@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AppData } from "../constants/Data";
 import { questions } from "../constants/question";
+import { Box, Button, Center, Heading, Checkbox, Select, Input, Text } from '@chakra-ui/react'
+
 
 function CollegeInput() {
   const [option1, setOption1] = useState("");
@@ -16,7 +18,7 @@ function CollegeInput() {
   const navigate = useNavigate();
 
   const filteredIdea = AppData.filter((college) =>
-    college.toLowerCase().startsWith(inputValue.toLowerCase())
+    college.toLowerCase().includes(inputValue.toLowerCase())
   );
 
   const handleCheckboxChange = (e) => {
@@ -111,38 +113,42 @@ function CollegeInput() {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+  <>
+  <Box backgroundColor={"teal"}  w='100%' h='100vh'>
+    <Heading color={"white"} textAlign='center' pt='5'>Welcome to Tech-Tonic</Heading>
+    <Center p='23'>
+    <form onSubmit={handleSubmit} style={{backgroundColor:"white" , borderRadius:"12px", padding:"20px"}} >
       <label>
-        Time Duration: in months
-        <select value={option1} onChange={handleOption1Change}>
-          <option>Select an month</option>
+        Time Duration (in months):
+        <Select onChange={handleOption1Change} placeholder='Expected project duration (in months)' required>
           <option value="short(1-5)">short(1-5)</option>
           <option value="Medium (5-8)"> Medium (5-8)</option>
           <option value="long(more than 8 months)">
             long(more than 8 months)
           </option>
-        </select>
+        </Select>
       </label>
-      <br />
+    <br />
       <label>
         Team Size:
-        <select value={option2} onChange={handleOption2Change}>
-          <option>Select an team size</option>
+        <Select onChange={handleOption2Change} placeholder='Select your team size' required>
           <option value="Very small (1-5)"> Very small (1-5)</option>
           <option value="Small (5-10)"> Small (5-10)</option>
           <option value="Medium (10-50)"> Medium (10-50)</option>
           <option value="Large (More than 50)"> Large (More than 50)</option>
-        </select>
+        </Select>
       </label>
       <br />
       <div>
         <label>
           App Idea:
-          <input
+          <Input
+            w='xl'
             type="text"
             list="colleges"
-            value={inputValue}
+            placeholder="Select your project idea"
             onChange={(e) => setInputValue(e.target.value)}
+            required
           />
           <datalist id="colleges">
             {filteredIdea.map((college) => (
@@ -151,8 +157,8 @@ function CollegeInput() {
           </datalist>
         </label>
       </div>
-
-      <p>Designing skills</p>
+   
+      <Text fontSize='2xl'>Designing skills</Text>
       <div>
         {questions.map((q) => (
           <div key={q.id}>
@@ -197,10 +203,11 @@ function CollegeInput() {
         </label>
       </div>
 
-      <button onClick={() => add()} type="submit">
-        Next
-      </button>
+      <Button colorScheme='teal' onClick={() => add()} type="submit">Next</Button>
     </form>
+    </Center>
+    </Box>
+    </>
   );
 }
 export default CollegeInput;

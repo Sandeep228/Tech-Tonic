@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { Box, Button, Center, Heading, Checkbox, Select, Input, Text } from '@chakra-ui/react'
+
 
 const CheckboxForm = () => {
   const location = useLocation();
+  console.log(location);
   const navigate = useNavigate();
   let res=[];
   let needParsing=true;
@@ -250,11 +253,14 @@ const CheckboxForm = () => {
   };
 
   return (
-    <div>
+    <Box backgroundColor={"teal"}  w='100%' h='100vh'>
+    <Heading color={"white"} textAlign='center' py={5}>Database Proficiency</Heading>
+    <Center>
+    <div style={{backgroundColor:"white" , borderRadius:"12px", padding:"20px", width:"700px"}}>
       <div>
         <label>
           MongoDB
-          <select
+          <Select
             name="MongoDB"
             value={technologies["MongoDB"].proficiency}
             onChange={handleProficiencyChange}
@@ -263,20 +269,27 @@ const CheckboxForm = () => {
             <option value="intermediate">Intermediate</option>
             <option value="advanced">Advanced</option>
             <option value="unfamiliar">Unfamiliar</option>
-          </select>
-          <input
+          </Select>
+          <div style={{height:'10px'}}></div>
+          <span>
+          <label for="MongoDB" style={{fontSize:"15px"}}>Enter number of projects done in MongoDB:</label>
+           &nbsp; &nbsp; &nbsp; 
+          <Input
             type="number"
             min="0"
             name="MongoDB"
             value={technologies["MongoDB"].projects}
             onChange={handleProjectsChange}
+            variant='filled'
+            w='50'
           />
+          </span>
         </label>
       </div>
       <div>
         <label>
           SQL
-          <select
+          <Select
             name="Sql"
             value={technologies["Sql"].proficiency}
             onChange={handleProficiencyChange}
@@ -285,20 +298,27 @@ const CheckboxForm = () => {
             <option value="intermediate">Intermediate</option>
             <option value="advanced">Advanced</option>
             <option value="unfamiliar">Unfamiliar</option>
-          </select>
-          <input
+          </Select>
+          <div style={{height:'10px'}}></div>
+          <span>
+          <label for="Sql" style={{fontSize:"15px"}}>Enter number of projects done in Sql:</label>
+           &nbsp; &nbsp; &nbsp; 
+          <Input
             type="number"
             min="0"
             name="Sql"
             value={technologies["Sql"].projects}
             onChange={handleProjectsChange}
+            variant='filled'
+            w='50'
           />
+          </span>
         </label>
       </div>
       <div>
         <label>
           Postgres
-          <select
+          <Select
             name="Postgres"
             value={technologies["Postgres"].proficiency}
             onChange={handleProficiencyChange}
@@ -307,20 +327,27 @@ const CheckboxForm = () => {
             <option value="intermediate">Intermediate</option>
             <option value="advanced">Advanced</option>
             <option value="unfamiliar">Unfamiliar</option>
-          </select>
-          <input
+          </Select>
+          <div style={{height:'10px'}}></div>
+          <span>
+          <label for="Postgres" style={{fontSize:"15px"}}>Enter number of projects done in Postgres:</label>
+           &nbsp; &nbsp; &nbsp; 
+          <Input
             type="number"
             min="0"
             name="Postgres"
             value={technologies["Postgres"].projects}
             onChange={handleProjectsChange}
+            variant='filled'
+            w='50'
           />
+          </span>
         </label>
       </div>
       <div>
         <label>
           GraphQL
-          <select
+          <Select
             name="GraphQL"
             value={technologies["GraphQL"].proficiency}
             onChange={handleProficiencyChange}
@@ -329,19 +356,28 @@ const CheckboxForm = () => {
             <option value="intermediate">Intermediate</option>
             <option value="advanced">Advanced</option>
             <option value="unfamiliar">Unfamiliar</option>
-          </select>
-          <input
+          </Select>
+          <div style={{height:'10px'}}></div>
+          <span>
+          <label for="GraphQL" style={{fontSize:"15px"}}>Enter number of projects done in GraphQL:</label>
+           &nbsp; &nbsp; &nbsp; 
+          <Input
             type="number"
             min="0"
             name="GraphQL"
             value={technologies["GraphQL"].projects}
             onChange={handleProjectsChange}
+            variant='filled'
+            w='50'
           />
+          </span>
         </label>
       </div>
 
-      <button onClick={() => calculateScore()}> add </button>
+      <Button colorScheme='teal' onClick={() => calculateScore()}>Add</Button>
     </div>
+    </Center>
+    </Box>
   );
 };
 
