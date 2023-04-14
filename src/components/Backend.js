@@ -123,7 +123,7 @@ function Backend() {
       projectType: `${location.state?.back?.projectType}`,
       frontendProficiency: `${location.state?.back?.frontendProficiency}`,
       designingSkills: `${location.state?.back?.designingSkills}`,
-      backendProficiency: res11,
+      backendProficiency: `${res11.firstKey} ${res11.secondKey}`,
     };
 
     navigate("/data", {

@@ -60,13 +60,12 @@ const CheckboxForm = () => {
         default:
           score = 0;
       }
-
       // Multiply score by number of projects
       const total = score + projects;
       // Add total score to ReactJS or NextJS score
       if (tech === "MongoDB") {
         MongoDB += total;
-      } else if (tech === "SQL") {
+      } else if (tech === "Sql") {
         SQL += total;
       } else if (tech === "Postgres") {
         Postgres += total;
@@ -85,14 +84,14 @@ const CheckboxForm = () => {
     
     if (hasAllzeros(arr)) {
       needParsing = false;
-      res = ["N/A", "N/A"];
+      res = [{firstKey:"N/A", secondKey:"N/A"}];
     }
 
     if (needParsing == true) {
       let obj = sortArray(arr);
       if (hasThreeZeros(obj)) {
         const firstPair = Object.keys(obj)[0];
-        res = [firstPair, "N/A"];
+        res = [{firstKey:firstPair, secondKey:"N/A"}];
         needParsing = false;
       }
     }
@@ -119,7 +118,7 @@ const CheckboxForm = () => {
       frontendProficiency: `${location.state?.back?.frontendProficiency}`,
       backendProficiency: `${location.state?.back?.backendProficiency}`,
       designingSkills:`${location.state?.back?.designingSkills}`,
-      DBProficiency: res
+      DBProficiency: `${res[0].firstKey} ${res[0].secondKey}`
     };
 
     navigate("/result", {
@@ -237,7 +236,7 @@ const CheckboxForm = () => {
   //logic error
   const largest = (arr) => {
     if (Object.values(arr[0]).every((val) => val === 0)) {
-      return ["N/A", "N/A"];
+      return [{firstKey:"N/A", secondKey:"N/A"}];
     } else {
       // eslint-disable-next-line
       const [firstKey, firstValue] = Object.entries(arr[0]).sort(
@@ -248,7 +247,7 @@ const CheckboxForm = () => {
         (a, b) => b[1] - a[1]
       )[1];
 
-      return { firstKey, secondKey };
+      return [{ firstKey:firstKey, secondKey:secondKey }];
     }
   };
 
