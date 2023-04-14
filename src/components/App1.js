@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { Box, Button, Center, Heading, Checkbox, Select, Input, Text } from '@chakra-ui/react'
 
 const CheckboxForm = () => {
   const location = useLocation();
@@ -246,11 +247,14 @@ const CheckboxForm = () => {
   };
 
   return (
-    <div>
+    <Box backgroundColor={"teal"}  w='100%' h='100vh'>
+      <Heading color={"white"} textAlign='center' py={5}>Frontend Proficiency</Heading>
+      <Center>
+    <div style={{backgroundColor:"white" , borderRadius:"12px", padding:"20px", width:"700px"}}>
       <div>
         <label>
           React Native:
-          <select
+          <Select
             name="reactnative"
             value={technologies["reactnative"].proficiency}
             onChange={handleProficiencyChange}
@@ -259,20 +263,27 @@ const CheckboxForm = () => {
             <option value="intermediate">Intermediate</option>
             <option value="advanced">Advanced</option>
             <option value="unfamiliar">Unfamiliar</option>
-          </select>
-          <input
+          </Select>
+          <div style={{height:'10px'}}></div>
+          <span>
+          <label for="reactnative" style={{fontSize:"15px"}}>Enter number of projects done in React Native:</label>
+           &nbsp; &nbsp; &nbsp; 
+          <Input
             type="number"
             min="0"
             name="reactnative"
             value={technologies["reactnative"].projects}
             onChange={handleProjectsChange}
+            variant='filled'
+            w='50'
           />
+          </span>
         </label>
       </div>
       <div>
         <label>
           Flutter
-          <select
+          <Select
             name="flutter"
             value={technologies["flutter"].proficiency}
             onChange={handleProficiencyChange}
@@ -281,20 +292,27 @@ const CheckboxForm = () => {
             <option value="intermediate">Intermediate</option>
             <option value="advanced">Advanced</option>
             <option value="unfamiliar">Unfamiliar</option>
-          </select>
-          <input
+          </Select>
+          <div style={{height:'10px'}}></div>
+          <span>
+          <label for="flutter" style={{fontSize:"15px"}}>Enter number of projects done in Flutter:</label>
+           &nbsp; &nbsp; &nbsp; 
+          <Input
             type="number"
             min="0"
             name="flutter"
             value={technologies["flutter"].projects}
             onChange={handleProjectsChange}
+            variant='filled'
+            w='50'
           />
+          </span>
         </label>
       </div>
       <div>
         <label>
           Swift
-          <select
+          <Select
             name="swift"
             value={technologies["swift"].proficiency}
             onChange={handleProficiencyChange}
@@ -303,20 +321,27 @@ const CheckboxForm = () => {
             <option value="intermediate">Intermediate</option>
             <option value="advanced">Advanced</option>
             <option value="unfamiliar">Unfamiliar</option>
-          </select>
-          <input
+          </Select>
+          <div style={{height:'10px'}}></div>
+          <span>
+          <label for="swift" style={{fontSize:"15px"}}>Enter number of projects done in Swift:</label>
+           &nbsp; &nbsp; &nbsp; 
+          <Input
             type="number"
             min="0"
             name="swift"
             value={technologies["swift"].projects}
             onChange={handleProjectsChange}
+            variant='filled'
+            w='50'
           />
+          </span>
         </label>
       </div>
       <div>
         <label>
           XML
-          <select
+          <Select
             name="xml"
             value={technologies["xml"].proficiency}
             onChange={handleProficiencyChange}
@@ -325,19 +350,29 @@ const CheckboxForm = () => {
             <option value="intermediate">Intermediate</option>
             <option value="advanced">Advanced</option>
             <option value="unfamiliar">Unfamiliar</option>
-          </select>
-          <input
+          </Select>
+          <div style={{height:'10px'}}></div>
+          <span>
+          <label for="xml" style={{fontSize:"15px"}}>Enter number of projects done in XML:</label>
+           &nbsp; &nbsp; &nbsp; 
+          <Input
             type="number"
             min="0"
             name="xml"
             value={technologies["xml"].projects}
             onChange={handleProjectsChange}
+            variant='filled'
+            w='50'
           />
+          </span>
         </label>
       </div>
+     
+      <Button colorScheme='teal' onClick={() => calculateScore()}>Next</Button>
 
-      <button onClick={() => calculateScore()}> add </button>
     </div>
+    </Center>
+    </Box>
   );
 };
 

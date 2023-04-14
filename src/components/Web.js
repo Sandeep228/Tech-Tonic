@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { Box, Button, Center, Heading, Checkbox, Select, Input, Text } from '@chakra-ui/react'
+
 
 const CheckboxForm = () => {
   let needParsing = true;
   const location = useLocation();
   const navigate = useNavigate();
+  console.log(location);
 
   const [technologies, setTechnologies] = useState({
     nextjs: { proficiency: "unfamiliar", projects: 0 },
@@ -110,7 +113,7 @@ const CheckboxForm = () => {
       designingSkills: `${location.state?.res}`,
       frontendProficiency: res,
     };
-    
+   
     navigate("/backend", {
       replace: true,
       state: { back },
@@ -240,11 +243,15 @@ const CheckboxForm = () => {
   };
 
   return (
-    <div>
+    <Box backgroundColor={"teal"}  w='100%' h='100vh'>
+      <Heading color={"white"} textAlign='center' py={5}>Frontend Proficiency</Heading>
+      <Center>
+    <div style={{backgroundColor:"white" , borderRadius:"12px", padding:"20px", width:"700px"}}>
       <div>
-        <label>
+        <label style={{fontSize:"20px"}}>
           ReactJS:
-          <select
+          
+          <Select
             name="reactjs"
             value={technologies["reactjs"].proficiency}
             onChange={handleProficiencyChange}
@@ -253,20 +260,27 @@ const CheckboxForm = () => {
             <option value="intermediate">Intermediate</option>
             <option value="advanced">Advanced</option>
             <option value="unfamiliar">Unfamiliar</option>
-          </select>
-          <input
+          </Select>
+          <div style={{height:'10px'}}></div>
+          <span>
+          <label for="reactjs" style={{fontSize:"15px"}}>Enter number of projects done in ReactJS:</label>
+           &nbsp; &nbsp; &nbsp; 
+          <Input
             type="number"
             min="0"
             name="reactjs"
             value={technologies["reactjs"].projects}
             onChange={handleProjectsChange}
+            variant='filled'
+            w='50'
           />
+          </span>
         </label>
       </div>
       <div>
-        <label>
+        <label style={{fontSize:"20px"}}>
           NextJS:
-          <select
+          <Select
             name="nextjs"
             value={technologies["nextjs"].proficiency}
             onChange={handleProficiencyChange}
@@ -275,20 +289,27 @@ const CheckboxForm = () => {
             <option value="intermediate">Intermediate</option>
             <option value="advanced">Advanced</option>
             <option value="unfamiliar">Unfamiliar</option>
-          </select>
-          <input
+          </Select>
+          <div style={{height:'10px'}}></div>
+          <span>
+          <label for="nextjs" style={{fontSize:"15px"}}>Enter number of projects done in NextJS:</label>
+           &nbsp; &nbsp; &nbsp;  
+          <Input
             type="number"
             min="0"
             name="nextjs"
             value={technologies["nextjs"].projects}
             onChange={handleProjectsChange}
+            variant='filled'
+            w='50'
           />
+          </span>
         </label>
       </div>
       <div>
-        <label>
+        <label style={{fontSize:"20px"}}>
           Angular:
-          <select
+          <Select
             name="angular"
             value={technologies["angular"].proficiency}
             onChange={handleProficiencyChange}
@@ -297,20 +318,27 @@ const CheckboxForm = () => {
             <option value="intermediate">Intermediate</option>
             <option value="advanced">Advanced</option>
             <option value="unfamiliar">Unfamiliar</option>
-          </select>
-          <input
+          </Select>
+          <div style={{height:'10px'}}></div>
+          <span>
+          <label for="angular" style={{fontSize:"15px"}}>Enter number of projects done in Angular:</label>
+           &nbsp; &nbsp; &nbsp;  
+          <Input
             type="number"
             min="0"
             name="angular"
             value={technologies["angular"].projects}
             onChange={handleProjectsChange}
+            variant='filled'
+            w='50'
           />
+          </span>
         </label>
       </div>
       <div>
-        <label>
+        <label style={{fontSize:"20px"}}>
           Vue:
-          <select
+          <Select
             name="vue"
             value={technologies["vue"].proficiency}
             onChange={handleProficiencyChange}
@@ -319,18 +347,30 @@ const CheckboxForm = () => {
             <option value="intermediate">Intermediate</option>
             <option value="advanced">Advanced</option>
             <option value="unfamiliar">Unfamiliar</option>
-          </select>
-          <input
+          </Select>
+          <div style={{height:'10px'}}></div>
+          <span>
+          <label for="vue" style={{fontSize:"15px"}}>Enter number of projects done in Vue:</label>
+           &nbsp; &nbsp; &nbsp;  
+          <Input
             type="number"
             min="0"
             name="vue"
             value={technologies["vue"].projects}
             onChange={handleProjectsChange}
+            variant='filled'
+            w='50'
           />
+          </span>
         </label>
       </div>
-      <button onClick={() => calculateScore()}> add </button>
+      <br/>
+      
+      <Button colorScheme='teal' onClick={() => calculateScore()}>Next</Button>
+
     </div>
+    </Center>
+    </Box>
   );
 };
 
