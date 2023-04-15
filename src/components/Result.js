@@ -7,21 +7,20 @@ const { Configuration, OpenAIApi } = require("openai");
 
 export default function Result() {
   const location = useLocation();
- 
-  let locObj;
-  let finalRes="";
-
+  let finalRes;
+  let locObj=location.state.back;
+  
   useEffect(() => {
+    let locObj=location.state.back;
+    makeString(locObj);
     async function getData() {
-      const data = await myFunction(finalRes);
+      const data = await openAPIDataFetch(finalRes);
       setResponseData(data);
     }
-    locObj=location.state.back;
-    makeString(locObj);
     getData();
   }, []);
     
-    const [responseData, setResponseData] = useState(null);
+  const [responseData, setResponseData] = useState(null);
   
     const makeString = (locObj) => {
        let duration= locObj.duration
@@ -35,10 +34,11 @@ export default function Result() {
 
        finalRes=`A ${projectName} in ${projectType} with ${TeamSize} team in ${duration} duration with ${designingSkills} desgining ${frontendProficiency} ${backendProficiency} ${DBProficiency1} skills`
     };
-    makeString();
-    finalRes=finalRes.replaceAll(',',' ');
+     makeString(locObj);
+     finalRes=finalRes.replaceAll(',',' ');
+     console.log(finalRes);
      
-    const  myFunction= async(prompt) => {
+    const  openAPIDataFetch= async(prompt) => {
       const configuration = new Configuration({
          apiKey: "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",
        });
