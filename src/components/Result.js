@@ -70,12 +70,12 @@ export default function Result() {
 
   const openAPIDataFetch = async (prompt) => {
     const configuration = new Configuration({
-      apiKey: "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",
+      apiKey: "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",
     });
     const openai = new OpenAIApi(configuration);
 
     const completion = await openai.createCompletion({
-      model: "curie:ft-personal-2023-04-16-12-05-03",
+      model: "curie:ft-personal-2023-04-16-17-31-39",
       prompt: prompt,
       max_tokens: 6,
     });
