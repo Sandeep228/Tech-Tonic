@@ -51,7 +51,7 @@ export default function Result() {
   };
   makeString(locObj);
   finalRes = finalRes.replaceAll(",", " ");
-  console.log(finalRes);
+  console.log("finalres", finalRes);
 
   const getDocumentation = async () => {
     setLoading(true);
