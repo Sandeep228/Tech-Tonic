@@ -70,7 +70,7 @@ export default function Result() {
 
   const openAPIDataFetch = async (prompt) => {
     const configuration = new Configuration({
-      apiKey: "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",
+      apiKey: process.env.REACT_APP_APIKEY,
     });
     const openai = new OpenAIApi(configuration);
 
