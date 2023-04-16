@@ -103,11 +103,6 @@ function CollegeInput() {
         replace: true,
         state: { option1, option2, inputValue, projectype, res },
       });
-    } else {
-      navigate("/secondpage", {
-        replace: true,
-        state: { option1, option2, inputValue, projectype, res },
-      });
     }
   }
 
