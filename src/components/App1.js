@@ -1,12 +1,21 @@
 import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { Box, Button, Center, Heading, Checkbox, Select, Input, Text } from '@chakra-ui/react'
+import {
+  Box,
+  Button,
+  Center,
+  Heading,
+  Checkbox,
+  Select,
+  Input,
+  Text,
+} from "@chakra-ui/react";
 
 const CheckboxForm = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  let res=[];
-  let needParsing=true;
+  let res = [];
+  let needParsing = true;
 
   const [technologies, setTechnologies] = useState({
     reactnative: { proficiency: "unfamiliar", projects: 0 },
@@ -78,17 +87,17 @@ const CheckboxForm = () => {
         XML: xmlScore,
       },
     ];
-   
+
     if (hasAllzeros(arr)) {
       needParsing = false;
-      res = [{firstKey:"N/A", secondKey:"N/A"}];
+      res = [{ firstKey: "N/A", secondKey: "N/A" }];
     }
 
     if (needParsing == true) {
       let obj = sortArray(arr);
       if (hasThreeZeros(obj)) {
         const firstPair = Object.keys(obj)[0];
-        res = [{firstKey:firstPair, secondKey:"N/A"}];
+        res = [{ firstKey: firstPair, secondKey: "N/A" }];
         needParsing = false;
       }
     }
@@ -98,12 +107,12 @@ const CheckboxForm = () => {
         const TeamSize = location.state.option2;
         arr = manipulateArray(arr, TeamSize);
         res = largest(arr);
-        needParsing=false;
+        needParsing = false;
       }
     }
-   
-    if(needParsing==true){
-      res=largest(arr);
+
+    if (needParsing == true) {
+      res = largest(arr);
     }
 
     const back = {
@@ -142,7 +151,7 @@ const CheckboxForm = () => {
       xmlScore == 0
     ) {
       return true;
-    }else{
+    } else {
       return false;
     }
   };
@@ -168,8 +177,8 @@ const CheckboxForm = () => {
         {
           ReactNative: reactnativeScore + 2,
           Flutter: flutterScore + 2,
-          Swift: swiftScore+1,
-          XML: xmlScore+1,
+          Swift: swiftScore + 1,
+          XML: xmlScore + 1,
         },
       ];
     } else if (teamsize === "small") {
@@ -177,8 +186,8 @@ const CheckboxForm = () => {
         {
           ReactNative: reactnativeScore + 2,
           Flutter: flutterScore + 2,
-          Swift: swiftScore+1,
-          XML: xmlScore+1,
+          Swift: swiftScore + 1,
+          XML: xmlScore + 1,
         },
       ];
     } else if (teamsize === "medium") {
@@ -225,9 +234,9 @@ const CheckboxForm = () => {
 
   //logic error
   const largest = (arr) => {
-    console.log(arr);
+    console.log("arr", arr);
     if (Object.values(arr[0]).every((val) => val === 0)) {
-      return [{firstKey:"N/A", secondKey:"N/A"}];
+      return [{ firstKey: "N/A", secondKey: "N/A" }];
     } else {
       // eslint-disable-next-line
       const [firstKey, firstValue] = Object.entries(arr[0]).sort(
@@ -238,136 +247,154 @@ const CheckboxForm = () => {
         (a, b) => b[1] - a[1]
       )[1];
 
-      return [{ firstKey:firstKey, secondKey:secondKey }];
+      return [{ firstKey: firstKey, secondKey: secondKey }];
     }
   };
 
   return (
-    <Box backgroundColor={"teal"}  w='100%' h='100vh'>
-      <Heading color={"white"} textAlign='center' py={5}>Frontend Proficiency</Heading>
+    <Box backgroundColor={"teal"} w="100%" h="100vh">
+      <Heading color={"white"} textAlign="center" py={5}>
+        Frontend Proficiency
+      </Heading>
       <Center>
-    <div style={{backgroundColor:"white" , borderRadius:"12px", padding:"20px", width:"700px"}}>
-      <div>
-        <label>
-          React Native:
-          <Select
-            name="reactnative"
-            value={technologies["reactnative"].proficiency}
-            onChange={handleProficiencyChange}
-          >
-            <option value="basic">Basic</option>
-            <option value="intermediate">Intermediate</option>
-            <option value="advanced">Advanced</option>
-            <option value="unfamiliar">Unfamiliar</option>
-          </Select>
-          <div style={{height:'10px'}}></div>
-          <span>
-          <label for="reactnative" style={{fontSize:"15px"}}>Enter number of projects done in React Native:</label>
-           &nbsp; &nbsp; &nbsp; 
-          <Input
-            type="number"
-            min="0"
-            name="reactnative"
-            value={technologies["reactnative"].projects}
-            onChange={handleProjectsChange}
-            variant='filled'
-            w='50'
-          />
-          </span>
-        </label>
-      </div>
-      <div>
-        <label>
-          Flutter
-          <Select
-            name="flutter"
-            value={technologies["flutter"].proficiency}
-            onChange={handleProficiencyChange}
-          >
-            <option value="basic">Basic</option>
-            <option value="intermediate">Intermediate</option>
-            <option value="advanced">Advanced</option>
-            <option value="unfamiliar">Unfamiliar</option>
-          </Select>
-          <div style={{height:'10px'}}></div>
-          <span>
-          <label for="flutter" style={{fontSize:"15px"}}>Enter number of projects done in Flutter:</label>
-           &nbsp; &nbsp; &nbsp; 
-          <Input
-            type="number"
-            min="0"
-            name="flutter"
-            value={technologies["flutter"].projects}
-            onChange={handleProjectsChange}
-            variant='filled'
-            w='50'
-          />
-          </span>
-        </label>
-      </div>
-      <div>
-        <label>
-          Swift
-          <Select
-            name="swift"
-            value={technologies["swift"].proficiency}
-            onChange={handleProficiencyChange}
-          >
-            <option value="basic">Basic</option>
-            <option value="intermediate">Intermediate</option>
-            <option value="advanced">Advanced</option>
-            <option value="unfamiliar">Unfamiliar</option>
-          </Select>
-          <div style={{height:'10px'}}></div>
-          <span>
-          <label for="swift" style={{fontSize:"15px"}}>Enter number of projects done in Swift:</label>
-           &nbsp; &nbsp; &nbsp; 
-          <Input
-            type="number"
-            min="0"
-            name="swift"
-            value={technologies["swift"].projects}
-            onChange={handleProjectsChange}
-            variant='filled'
-            w='50'
-          />
-          </span>
-        </label>
-      </div>
-      <div>
-        <label>
-          XML
-          <Select
-            name="xml"
-            value={technologies["xml"].proficiency}
-            onChange={handleProficiencyChange}
-          >
-            <option value="basic">Basic</option>
-            <option value="intermediate">Intermediate</option>
-            <option value="advanced">Advanced</option>
-            <option value="unfamiliar">Unfamiliar</option>
-          </Select>
-          <div style={{height:'10px'}}></div>
-          <span>
-          <label for="xml" style={{fontSize:"15px"}}>Enter number of projects done in XML:</label>
-           &nbsp; &nbsp; &nbsp; 
-          <Input
-            type="number"
-            min="0"
-            name="xml"
-            value={technologies["xml"].projects}
-            onChange={handleProjectsChange}
-            variant='filled'
-            w='50'
-          />
-          </span>
-        </label>
-      </div>
-     
-      <Button colorScheme='teal' onClick={() => calculateScore()}>Next</Button>
+        <div
+          style={{
+            backgroundColor: "white",
+            borderRadius: "12px",
+            padding: "20px",
+            width: "700px",
+          }}
+        >
+          <div>
+            <label>
+              React Native:
+              <Select
+                name="reactnative"
+                value={technologies["reactnative"].proficiency}
+                onChange={handleProficiencyChange}
+              >
+                <option value="basic">Basic</option>
+                <option value="intermediate">Intermediate</option>
+                <option value="advanced">Advanced</option>
+                <option value="unfamiliar">Unfamiliar</option>
+              </Select>
+              <div style={{ height: "10px" }}></div>
+              <span>
+                <label for="reactnative" style={{ fontSize: "15px" }}>
+                  Enter number of projects done in React Native:
+                </label>
+                &nbsp; &nbsp; &nbsp;
+                <Input
+                  type="number"
+                  min="0"
+                  name="reactnative"
+                  value={technologies["reactnative"].projects}
+                  onChange={handleProjectsChange}
+                  variant="filled"
+                  w="50"
+                />
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              Flutter
+              <Select
+                name="flutter"
+                value={technologies["flutter"].proficiency}
+                onChange={handleProficiencyChange}
+              >
+                <option value="basic">Basic</option>
+                <option value="intermediate">Intermediate</option>
+                <option value="advanced">Advanced</option>
+                <option value="unfamiliar">Unfamiliar</option>
+              </Select>
+              <div style={{ height: "10px" }}></div>
+              <span>
+                <label for="flutter" style={{ fontSize: "15px" }}>
+                  Enter number of projects done in Flutter:
+                </label>
+                &nbsp; &nbsp; &nbsp;
+                <Input
+                  type="number"
+                  min="0"
+                  name="flutter"
+                  value={technologies["flutter"].projects}
+                  onChange={handleProjectsChange}
+                  variant="filled"
+                  w="50"
+                />
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              Swift
+              <Select
+                name="swift"
+                value={technologies["swift"].proficiency}
+                onChange={handleProficiencyChange}
+              >
+                <option value="basic">Basic</option>
+                <option value="intermediate">Intermediate</option>
+                <option value="advanced">Advanced</option>
+                <option value="unfamiliar">Unfamiliar</option>
+              </Select>
+              <div style={{ height: "10px" }}></div>
+              <span>
+                <label for="swift" style={{ fontSize: "15px" }}>
+                  Enter number of projects done in Swift:
+                </label>
+                &nbsp; &nbsp; &nbsp;
+                <Input
+                  type="number"
+                  min="0"
+                  name="swift"
+                  value={technologies["swift"].projects}
+                  onChange={handleProjectsChange}
+                  variant="filled"
+                  w="50"
+                />
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              XML
+              <Select
+                name="xml"
+                value={technologies["xml"].proficiency}
+                onChange={handleProficiencyChange}
+              >
+                <option value="basic">Basic</option>
+                <option value="intermediate">Intermediate</option>
+                <option value="advanced">Advanced</option>
+                <option value="unfamiliar">Unfamiliar</option>
+              </Select>
+              <div style={{ height: "10px" }}></div>
+              <span>
+                <label for="xml" style={{ fontSize: "15px" }}>
+                  Enter number of projects done in XML:
+                </label>
+                &nbsp; &nbsp; &nbsp;
+                <Input
+                  type="number"
+                  min="0"
+                  name="xml"
+                  value={technologies["xml"].projects}
+                  onChange={handleProjectsChange}
+                  variant="filled"
+                  w="50"
+                />
+              </span>
+            </label>
+          </div>
 
-    </div>
-    </Center>
+          <Button colorScheme="teal" onClick={() => calculateScore()}>
+            Next
+          </Button>
+        </div>
+      </Center>
     </Box>
   );
 };
