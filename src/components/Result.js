@@ -1,12 +1,14 @@
 import React from 'react';
+import axios from 'axios';
+
 import { useEffect,useState } from 'react';
 import { useLocation, useNavigate } from "react-router-dom";
 import { Box, Button, Center, Heading, Checkbox, Select, Input, Text } from '@chakra-ui/react'
 const { Configuration, OpenAIApi } = require("openai");
 
-
 export default function Result() {
   const location = useLocation();
+  const [loading, setLoading] = useState();
   let finalRes;
   let locObj=location.state.back;
   
@@ -21,6 +23,7 @@ export default function Result() {
   }, []);
     
   const [responseData, setResponseData] = useState(null);
+  const [docs,setDocs]=useState();
   
     const makeString = (locObj) => {
        let duration= locObj.duration
@@ -33,10 +36,24 @@ export default function Result() {
         let DBProficiency1= locObj.DBProficiency
 
        finalRes=`A ${projectName} in ${projectType} with ${TeamSize} team in ${duration} duration with ${designingSkills} desgining ${frontendProficiency} ${backendProficiency} ${DBProficiency1} skills`
+       finalRes=finalRes.replaceAll(',',' ');
     };
      makeString(locObj);
      finalRes=finalRes.replaceAll(',',' ');
      console.log(finalRes);
+
+    const getDocumentation = async()=>{
+      setLoading(true);
+      const myParam = `Get some resources for ${responseData}`
+      await axios.get(`https://chatbot-gpt.pujaagarwal5.repl.co/chatbot?prompt=${myParam}`)
+      .then((data)=>{
+       // const data1= JSON.parse(data.data);
+       setLoading(false);
+        console.log(data.data);
+        setDocs(data.data);
+      })
+      
+    }
      
     const  openAPIDataFetch= async(prompt) => {
       const configuration = new Configuration({
@@ -47,7 +64,7 @@ export default function Result() {
        const completion = await openai.createCompletion({ 
          model: "curie:ft-personal-2023-04-09-14-39-14",
          prompt:prompt,
-         max_tokens:5
+         max_tokens:5,
        });
        return completion.data.choices[0].text;
     }
@@ -61,7 +78,18 @@ export default function Result() {
       {responseData && <p>{JSON.stringify(responseData)}</p>}
     </div>
     <br />
-    <Button colorScheme='teal'>Get more Information</Button>
+    <Button colorScheme='teal' onClick={()=>getDocumentation()}>Get more Information</Button>
+    <br />
+    <div>
+      {loading ? (
+        <div>Loading...</div>
+      ) : (
+        <div>
+    {docs && <p>{JSON.stringify(docs)}</p>}
+    </div>
+      )}
+    </div>
+    
     </div>
     </Center>
     </Box>
