@@ -13,7 +13,7 @@ const CheckboxForm = () => {
 
   const [technologies, setTechnologies] = useState({
     MongoDB: { proficiency: "unfamiliar", projects: 0 },
-    Sql: { proficiency: "unfamiliar", projects: 0 },
+    MySQL: { proficiency: "unfamiliar", projects: 0 },
     Postgres: { proficiency: "unfamiliar", projects: 0 },
     GraphQL: { proficiency: "unfamiliar", projects: 0 },
   });
@@ -36,7 +36,7 @@ const CheckboxForm = () => {
 
   const calculateScore = () => {
     let MongoDB = 0;
-    let SQL = 0;
+    let MySQL = 0;
     let Postgres = 0;
     let GraphQL = 0;
 
@@ -65,8 +65,8 @@ const CheckboxForm = () => {
       // Add total score to ReactJS or NextJS score
       if (tech === "MongoDB") {
         MongoDB += total;
-      } else if (tech === "Sql") {
-        SQL += total;
+      } else if (tech === "MySQL") {
+        MySQL += total;
       } else if (tech === "Postgres") {
         Postgres += total;
       } else if (tech === "GraphQL") {
@@ -76,7 +76,7 @@ const CheckboxForm = () => {
     const arr = [
       {
         MongoDB: MongoDB,
-        SQL: SQL,
+        MySQL: MySQL,
         Postgres: Postgres,
         GraphQL: GraphQL,
       },
@@ -131,7 +131,7 @@ const CheckboxForm = () => {
 
   const hasAllzeros = (arr) => {
     const MongoDBScore = arr[0].MongoDB;
-    const SQLScore = arr[0].SQL;
+    const SQLScore = arr[0].MySQL;
     const PostgresScore = arr[0].Postgres;
     const GraphQLScore = arr[0].GraphQL;
     if (
@@ -189,7 +189,7 @@ const CheckboxForm = () => {
     //reorder them as per project size
     let newArr = [];
     const MongoDBScore = arr[0].MongoDB;
-    const SQLScore = arr[0].SQL;
+    const SQLScore = arr[0].MySQL;
     const PostgresScore = arr[0].Postgres;
     const GraphQLScore = arr[0].GraphQL;
 
@@ -197,7 +197,7 @@ const CheckboxForm = () => {
       newArr = [
         {
           MongoDB: MongoDBScore + 2,
-          SQL: SQLScore + 1,
+          MySQL: SQLScore + 1,
           Postgres: PostgresScore,
           GraphQL: GraphQLScore,
         },
@@ -206,7 +206,7 @@ const CheckboxForm = () => {
       newArr = [
         {
           MongoDB: MongoDBScore + 2,
-          SQL: SQLScore + 3,
+          MySQL: SQLScore + 3,
           Postgres: PostgresScore + 1,
           GraphQL: GraphQLScore,
         },
@@ -214,7 +214,7 @@ const CheckboxForm = () => {
     } else if (teamsize === "medium") {
       newArr = [
         {
-          SQL: SQLScore + 2,
+          MySQL: SQLScore + 2,
           MongoDB: MongoDBScore + 1,
           Postgres: PostgresScore + 1,
           GraphQL: GraphQLScore,
@@ -223,7 +223,7 @@ const CheckboxForm = () => {
     } else if (teamsize === "large") {
       newArr = [
         {
-          SQL: SQLScore + 3,
+          MySQL: SQLScore + 3,
           GraphQL: GraphQLScore + 2,
           Postgres: PostgresScore + 1,
           MongoDB: MongoDBScore,
@@ -287,10 +287,10 @@ const CheckboxForm = () => {
       </div>
       <div>
         <label>
-          SQL
+          MySQL
           <Select
-            name="Sql"
-            value={technologies["Sql"].proficiency}
+            name="MySQL"
+            value={technologies["MySQL"].proficiency}
             onChange={handleProficiencyChange}
           >
             <option value="basic">Basic</option>
@@ -300,13 +300,13 @@ const CheckboxForm = () => {
           </Select>
           <div style={{height:'10px'}}></div>
           <span>
-          <label for="Sql" style={{fontSize:"15px"}}>Enter number of projects done in Sql:</label>
+          <label for="MySQL" style={{fontSize:"15px"}}>Enter number of projects done in MySQL:</label>
            &nbsp; &nbsp; &nbsp; 
           <Input
             type="number"
             min="0"
-            name="Sql"
-            value={technologies["Sql"].projects}
+            name="MySQL"
+            value={technologies["MySQL"].projects}
             onChange={handleProjectsChange}
             variant='filled'
             w='50'

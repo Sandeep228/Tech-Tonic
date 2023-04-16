@@ -10,6 +10,7 @@ export default function Result() {
   const location = useLocation();
   const [loading, setLoading] = useState();
   let finalRes;
+  const [linksArray,setLinksArray]=useState([]);
   let locObj=location.state.back;
   
   useEffect(() => {
@@ -17,7 +18,8 @@ export default function Result() {
     makeString(locObj);
     async function getData() {
       const data = await openAPIDataFetch(finalRes);
-      setResponseData(data);
+      let result = data.split("stack")[0] + "stack";
+      setResponseData(result);
     }
     getData();
   }, []);
@@ -49,7 +51,9 @@ export default function Result() {
       .then((data)=>{
        // const data1= JSON.parse(data.data);
        setLoading(false);
-        console.log(data.data);
+        const links= data.data;
+        const linkData = links.split('\n\n');
+        setLinksArray(linkData);
         setDocs(data.data);
       })
       
@@ -62,15 +66,15 @@ export default function Result() {
        const openai = new OpenAIApi(configuration);
        
        const completion = await openai.createCompletion({ 
-         model: "curie:ft-personal-2023-04-09-14-39-14",
+         model: "curie:ft-personal-2023-04-16-12-05-03",
          prompt:prompt,
-         max_tokens:5,
+         max_tokens:6,
        });
        return completion.data.choices[0].text;
     }
 
   return (
-    <Box backgroundColor={"teal"}  w='100%' h='100vh'>
+    <Box backgroundColor={"teal"}  w='100%' h='500vh'>
     <Heading color={"white"} textAlign='center' py={5}>Recommended Techstack</Heading>
     <Center>
     <div style={{backgroundColor:"white" , borderRadius:"12px", padding:"20px", width:"700px"}}>
@@ -85,7 +89,16 @@ export default function Result() {
         <div>Loading...</div>
       ) : (
         <div>
-    {docs && <p>{JSON.stringify(docs)}</p>}
+        
+    <div>
+    <ul style={{listStyleType:"none"}}>
+      {linksArray.map((link, index) => (
+        <li key={index}>
+          <p>{link}</p>
+        </li>
+      ))}
+    </ul>
+    </div>
     </div>
       )}
     </div>

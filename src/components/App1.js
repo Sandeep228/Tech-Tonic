@@ -112,9 +112,8 @@ const CheckboxForm = () => {
       projectName: `${location.state?.inputValue}`,
       projectType: `${location.state?.projectype}`,
       designingSkills: `${location.state?.res}`,
-      frontendProficiency: `${res.firstKey} ${res.secondKey}`,
+      frontendProficiency: `${res[0].firstKey} ${res[0].secondKey}`,
     };
-    console.log("app array",res[0].firstKey," ",res[0].secondKey);
     navigate("/backend", {
       replace: true,
       state: { back },
@@ -218,9 +217,6 @@ const CheckboxForm = () => {
       const [key, value] = sortedPairs[i];
       if (value === topValues[0] || value === topValues[1]) {
         if (key !== sortedPairs[0][0] && key !== sortedPairs[1][0]) {
-          console.log(
-            `${key} has the same value as other keys and is not in top 2`
-          );
           return true;
         }
       }

@@ -113,7 +113,6 @@ const CheckboxForm = () => {
       designingSkills: `${location.state?.res}`,
       frontendProficiency: `${res[0].firstKey} ${res[0].secondKey}`,
     };
-    console.log("fixed web res",res.firstKey," ",res.secondKey);
     navigate("/backend", {
       replace: true,
       state: { back },

@@ -6,7 +6,6 @@ function Backend() {
   const location = useLocation();
   const navigate = useNavigate();
   let res11;
-  console.log(location);
 
   const [technologies, setTechnologies] = useState({
     nodejs: { proficiency: "unfamiliar", projects: 0 },
@@ -130,12 +129,11 @@ function Backend() {
       replace: true,
       state: { back },
     });
-    console.log("backed array",res11.firstKey," ",res11.secondKey);
     return res11;
   };
   //logic error
   const largest = (arr) => {
-    console.log(arr);
+   
     if (Object.values(arr[0]).every((val) => val === 0)) {
       return [{firstKey:"N/A", secondKey:"N/A"}];
     } else {
