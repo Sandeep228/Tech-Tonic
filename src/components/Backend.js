@@ -6,7 +6,6 @@ function Backend() {
   const location = useLocation();
   const navigate = useNavigate();
   let res11;
-  console.log(location);
 
   const [technologies, setTechnologies] = useState({
     nodejs: { proficiency: "unfamiliar", projects: 0 },
@@ -123,21 +122,20 @@ function Backend() {
       projectType: `${location.state?.back?.projectType}`,
       frontendProficiency: `${location.state?.back?.frontendProficiency}`,
       designingSkills: `${location.state?.back?.designingSkills}`,
-      backendProficiency: res11,
+      backendProficiency: `${res11[0].firstKey} ${res11[0].secondKey}`,
     };
 
     navigate("/data", {
       replace: true,
       state: { back },
     });
-    console.log(res11);
     return res11;
   };
   //logic error
   const largest = (arr) => {
-    console.log(arr);
+   
     if (Object.values(arr[0]).every((val) => val === 0)) {
-      return ["N/A", "N/A"];
+      return [{firstKey:"N/A", secondKey:"N/A"}];
     } else {
       // eslint-disable-next-line
       const [firstKey, firstValue] = Object.entries(arr[0]).sort(
@@ -148,7 +146,7 @@ function Backend() {
         (a, b) => b[1] - a[1]
       )[1];
 
-      return { firstKey, secondKey };
+      return [{ firstKey:firstKey, secondKey:secondKey }];
     }
   };
 

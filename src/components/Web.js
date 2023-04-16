@@ -80,14 +80,14 @@ const CheckboxForm = () => {
 
     if (hasAllzeros(arr)) {
       needParsing = false;
-      res = ["N/A", "N/A"];
+      res = [{firstKey:"N/A", secondKey:"N/A"}];
     }
 
     if (needParsing == true) {
       let obj = sortArray(arr);
       if (hasThreeZeros(obj)) {
         const firstPair = Object.keys(obj)[0];
-        res = [firstPair, "N/A"];
+        res = [{firstKey:firstPair, secondKey:"N/A"}];
         needParsing = false;
       }
     }
@@ -111,9 +111,8 @@ const CheckboxForm = () => {
       projectName: `${location.state?.inputValue}`,
       projectType: `${location.state?.projectype}`,
       designingSkills: `${location.state?.res}`,
-      frontendProficiency: res,
+      frontendProficiency: `${res[0].firstKey} ${res[0].secondKey}`,
     };
-   
     navigate("/backend", {
       replace: true,
       state: { back },
@@ -238,7 +237,7 @@ const CheckboxForm = () => {
         (a, b) => b[1] - a[1]
       )[1];
 
-      return { firstKey, secondKey };
+      return [{ firstKey:firstKey, secondKey:secondKey }];
     }
   };
 

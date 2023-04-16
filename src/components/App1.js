@@ -81,14 +81,14 @@ const CheckboxForm = () => {
    
     if (hasAllzeros(arr)) {
       needParsing = false;
-      res = ["N/A", "N/A"];
+      res = [{firstKey:"N/A", secondKey:"N/A"}];
     }
 
     if (needParsing == true) {
       let obj = sortArray(arr);
       if (hasThreeZeros(obj)) {
         const firstPair = Object.keys(obj)[0];
-        res = [firstPair, "N/A"];
+        res = [{firstKey:firstPair, secondKey:"N/A"}];
         needParsing = false;
       }
     }
@@ -112,9 +112,8 @@ const CheckboxForm = () => {
       projectName: `${location.state?.inputValue}`,
       projectType: `${location.state?.projectype}`,
       designingSkills: `${location.state?.res}`,
-      frontendProficiency: res,
+      frontendProficiency: `${res[0].firstKey} ${res[0].secondKey}`,
     };
-    
     navigate("/backend", {
       replace: true,
       state: { back },
@@ -218,9 +217,6 @@ const CheckboxForm = () => {
       const [key, value] = sortedPairs[i];
       if (value === topValues[0] || value === topValues[1]) {
         if (key !== sortedPairs[0][0] && key !== sortedPairs[1][0]) {
-          console.log(
-            `${key} has the same value as other keys and is not in top 2`
-          );
           return true;
         }
       }
@@ -231,7 +227,7 @@ const CheckboxForm = () => {
   const largest = (arr) => {
     console.log(arr);
     if (Object.values(arr[0]).every((val) => val === 0)) {
-      return ["N/A", "N/A"];
+      return [{firstKey:"N/A", secondKey:"N/A"}];
     } else {
       // eslint-disable-next-line
       const [firstKey, firstValue] = Object.entries(arr[0]).sort(
@@ -242,7 +238,7 @@ const CheckboxForm = () => {
         (a, b) => b[1] - a[1]
       )[1];
 
-      return { firstKey, secondKey };
+      return [{ firstKey:firstKey, secondKey:secondKey }];
     }
   };
 
