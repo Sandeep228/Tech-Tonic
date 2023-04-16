@@ -114,7 +114,7 @@ const CheckboxForm = () => {
       designingSkills: `${location.state?.res}`,
       frontendProficiency: `${res.firstKey} ${res.secondKey}`,
     };
-    
+    console.log("app array",res[0].firstKey," ",res[0].secondKey);
     navigate("/backend", {
       replace: true,
       state: { back },
@@ -242,7 +242,7 @@ const CheckboxForm = () => {
         (a, b) => b[1] - a[1]
       )[1];
 
-      return { firstKey:firstKey, secondKey:secondKey };
+      return [{ firstKey:firstKey, secondKey:secondKey }];
     }
   };
 

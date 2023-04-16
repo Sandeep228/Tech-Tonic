@@ -111,9 +111,9 @@ const CheckboxForm = () => {
       projectName: `${location.state?.inputValue}`,
       projectType: `${location.state?.projectype}`,
       designingSkills: `${location.state?.res}`,
-      frontendProficiency: `${res.firstKey} ${res.secondKey}`,
+      frontendProficiency: `${res[0].firstKey} ${res[0].secondKey}`,
     };
-    console.log("back web",back);
+    console.log("fixed web res",res.firstKey," ",res.secondKey);
     navigate("/backend", {
       replace: true,
       state: { back },
@@ -238,7 +238,7 @@ const CheckboxForm = () => {
         (a, b) => b[1] - a[1]
       )[1];
 
-      return { firstKey, secondKey };
+      return [{ firstKey:firstKey, secondKey:secondKey }];
     }
   };
 

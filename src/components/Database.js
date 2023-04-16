@@ -125,7 +125,7 @@ const CheckboxForm = () => {
       replace: true,
       state: { back },
     });
-    console.log(res);
+    console.log("db array",res);
     return res;
   };
 

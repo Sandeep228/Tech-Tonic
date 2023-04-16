@@ -12,6 +12,7 @@ function CollegeInput() {
   const [inputValue, setInputValue] = useState("");
   const [isWeb, setIsWeb] = useState(false);
   const [isApp, setIsApp] = useState(false);
+  const [checked,setChecked] = useState(false);
   const [answers, setAnswers] = useState({});
   const [result, setresult] = useState(0);
 
@@ -22,7 +23,9 @@ function CollegeInput() {
   );
 
   const handleCheckboxChange = (e) => {
-    const { id, value, checked } = e.target;
+    console.log("i am hre",e.target.value);
+    const { id, value, checkedVal } = e.target;
+    setChecked(checkedVal);
     setAnswers({ ...answers, [id]: checked ? value : undefined });
   };
 
@@ -66,14 +69,18 @@ function CollegeInput() {
   }
 
   const add = () => {
+    console.log(answers,"answers me hu");
     const sum = Object.values(answers).reduce((total, value) => {
+      console.log("vlue",value);
       return total + Number(value); // add value to total, converting to a number
     }, 0);
 
     setresult(sum);
+    console.log(sum,"after addibg");
     return sum;
   };
   function handlecheck() {
+    console.log("design res",result);
     //check for desgin
     if (result >= 6) {
       return "Advanced";
@@ -170,7 +177,8 @@ function CollegeInput() {
                     type="checkbox"
                     id={q.id}
                     value={option.value}
-                    checked={answers[q.id] === option.value}
+                    //checked={answers[q.id] === option.value}
+                    checked={checked}
                     onChange={handleCheckboxChange}
                   />
                   {option.text}
