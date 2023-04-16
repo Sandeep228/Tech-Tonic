@@ -70,7 +70,7 @@ export default function Result() {
 
   const openAPIDataFetch = async (prompt) => {
     const configuration = new Configuration({
-      apiKey: "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",
+      apiKey: "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",
     });
     const openai = new OpenAIApi(configuration);
 
