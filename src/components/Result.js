@@ -54,10 +54,14 @@ export default function Result() {
   console.log("finalres", finalRes);
 
   const getDocumentation = async () => {
+    console.log("dfdfd");
     setLoading(true);
     const myParam = `Get some resources for ${responseData}`;
+    console.log(myParam);
     await axios
-      .get(`https://chatbot-gpt.pujaagarwal5.repl.co/chatbot?prompt=${myParam}`)
+      .get(
+        `https://chatgpt-chatcompletions.onrender.com/chatbot?prompt=${myParam}`
+      )
       .then((data) => {
         // const data1= JSON.parse(data.data);
         setLoading(false);
