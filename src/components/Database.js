@@ -73,7 +73,7 @@ const CheckboxForm = () => {
         GraphQL += total;
       }
     });
-    const arr = [
+    let arr = [
       {
         MongoDB: MongoDB,
         MySQL: MySQL,
@@ -98,7 +98,7 @@ const CheckboxForm = () => {
 
     if (needParsing == true) {
       if (hasMoreSameParameters(arr)) {
-        const TeamSize = location.state.option2;
+        const TeamSize = location.state.back.TeamSize;
         arr = manipulateArray(arr, TeamSize);
         res = largest(arr);
         needParsing=false;
