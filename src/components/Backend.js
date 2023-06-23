@@ -152,7 +152,7 @@ function Backend() {
 
   return (
     <Box backgroundColor={"teal"}  w='100%' h='200vh'>
-    <Heading color={"white"} textAlign='center' py={5}>Frontend Proficiency</Heading>
+    <Heading color={"white"} textAlign='center' py={5}>Backend Proficiency</Heading>
     <Center>
     <div style={{backgroundColor:"white" , borderRadius:"12px", padding:"20px", width:"700px"}}>
       <div>
